@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>game of life</title>
+        
+        <style type="text/css">
+            table {
+                border: 1px solid #999;
+            }
+            td {
+                background-color: #ddd;
+                width: 6px;
+                height: 6px;
+            }
+            td.on {
+                background-color: orange;
+            }
+            input.size {
+                width: 20px;
+            }
+            input.started {
+                font-weight: bold;
+            }
+            input.stopped {
+                font-weight: bold;
+            }
+        </style>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="GameOfLife.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var gol;
+                gol = new GameOfLife([$('#width').val(),$('#height').val()]);
+                $('#startstop').click(function(event){
+                	event.preventDefault();
+                    if ($(this).val() === 'Start') {
+                        gol.start();
+                        $(this).val('Stop');
+                        $(this).toggleClass('started');
+                    }
+                    else {
+                        gol.stop();
+                        $(this).val('Start');
+                        $(this).toggleClass('stopped');
+                    }
+                });
+                $('#step').click(function(){
+                	event.preventDefault();
+                    gol.step();
+                });
+                $('#clear').click(function(){
+                	event.preventDefault();
+                    gol.clear();
+                });
+                $('#crawlers').click(function(){
+                	event.preventDefault();
+                    gol.cornerCrawlers();
+                });
+                $('.crawler').click(function(){
+                	event.preventDefault();
+                    gol.cornerCrawlers($(this).val());
+                });
+                $('#speed').on('change', function(){
+                    gol.speed = parseInt($(this).val(), 10);
+                    gol.start();
+                });
+                $('#resize').click(function(){
+                	event.preventDefault();
+                    gol.clear();
+                    gol = new GameOfLife([$('#width').val(),$('#height').val()]);
+                });
+                //gol.start();
+            });
+            
+        </script>
+    </head>
+
+    <body>
+    	<form method="post" action="">
+    		<input id="startstop" class="stopped" type="button" value="Start">
+	        <input id="step" type="button" value="Step">
+	        <input id="clear" type="button" value="Clear">
+	        <input id="crawlers" type="button" value="Corner Crawlers">
+	        <input class="crawler" type="button" value="SE">
+	        <input class="crawler" type="button" value="SW">
+	        <input class="crawler" type="button" value="NW">
+	        <input class="crawler" type="button" value="NE">
+	        <select id="speed">
+	            <option value="200">slow</option>
+	            <option value="100">medium</option>
+	            <option value="50" selected="selected">fast</option>
+	        </select>
+	        <input id="width" class="size" type="text" value="50">
+	        <input id="height" class="size" type="text" value="51">
+	        <input id="resize" type="button" value="Resize">
+    	</form>
+    </body>
+</html>
