@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <title>game of life</title>
-        
         <style type="text/css">
             table {
                 border: 1px solid #999;
@@ -26,7 +25,6 @@
                 font-weight: bold;
             }
         </style>
-
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript" src="GameOfLife.js"></script>
         <script type="text/javascript">
@@ -34,7 +32,6 @@
                 var gol;
                 gol = new GameOfLife([$('#width').val(),$('#height').val()]);
                 $('#startstop').click(function(event){
-                	event.preventDefault();
                     if ($(this).val() === 'Start') {
                         gol.start();
                         $(this).val('Stop');
@@ -47,19 +44,15 @@
                     }
                 });
                 $('#step').click(function(){
-                	event.preventDefault();
                     gol.step();
                 });
                 $('#clear').click(function(){
-                	event.preventDefault();
                     gol.clear();
                 });
                 $('#crawlers').click(function(){
-                	event.preventDefault();
                     gol.cornerCrawlers();
                 });
                 $('.crawler').click(function(){
-                	event.preventDefault();
                     gol.cornerCrawlers($(this).val());
                 });
                 $('#speed').on('change', function(){
@@ -67,16 +60,12 @@
                     gol.start();
                 });
                 $('#resize').click(function(){
-                	event.preventDefault();
                     gol.clear();
                     gol = new GameOfLife([$('#width').val(),$('#height').val()]);
                 });
-                //gol.start();
             });
-            
         </script>
     </head>
-
     <body>
     	<form method="post" action="">
     		<input id="startstop" class="stopped" type="button" value="Start">
