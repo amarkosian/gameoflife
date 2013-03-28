@@ -29,8 +29,8 @@
         <script type="text/javascript" src="GameOfLife.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                var gol;
-                gol = new GameOfLife([$('#width').val(),$('#height').val()]);
+                var gol = new GameOfLife([$('#width').val(),$('#height').val()]);
+                
                 $('#startstop').click(function(event){
                     if ($(this).val() === 'Start') {
                         gol.start();
