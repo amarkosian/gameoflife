@@ -1,4 +1,5 @@
-gameoflife
+Game of Life
 ==========
 
-## game of life
+## Description
+Conway's Game of Life on a configurable grid with "corner crawlers" and other features
