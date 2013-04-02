@@ -7,29 +7,33 @@
         <script type="text/javascript" src="GameOfLife.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                var dimensions = [
-                    $('#width').val(),
-                    $('#height').val()
-                ];
-                var elem = document.getElementById('GOL_Board');
-                var speed = $('#speed').val();
-                var gol = new GameOfLife(dimensions, {
-                    element: elem,
-                    speed: speed
-                });
+                var config = {
+                    width: $('#width').val(),
+                    height: $('#height').val(),
+                    element: document.getElementById('GOL_Board'),
+                    speed: $('#speed').val()
+                };
+                var gol = new GameOfLife(config);
                 //var gol = new GameOfLife(50,51);
                 gol.cornerCrawlers();
                 
+                function golStart() {
+                    gol.start();
+                    $('#startstop').val('Stop');
+                    $('#startstop').toggleClass('started');
+                }
+                function golStop() {
+                    gol.stop();
+                    $('#startstop').val('Start');
+                    $('#startstop').toggleClass('stopped');
+                }
+                
                 $('#startstop').click(function(event){
                     if ($(this).val() === 'Start') {
-                        gol.start();
-                        $(this).val('Stop');
-                        $(this).toggleClass('started');
+                        golStart();
                     }
                     else {
-                        gol.stop();
-                        $(this).val('Start');
-                        $(this).toggleClass('stopped');
+                        golStop();
                     }
                 });
                 $('#step').click(function(){
@@ -49,8 +53,15 @@
                     gol.start();
                 });
                 $('#resize').click(function(){
+                    golStop();
                     gol.clear();
-                    gol = new GameOfLife([$('#width').val(),$('#height').val()], {element: document.getElementById('GOL_Board')});
+                    gol = new GameOfLife({
+                        width: $('#width').val(),
+                        height: $('#height').val(),
+                        element: document.getElementById('GOL_Board'),
+                        speed: $('#speed').val()
+                    });
+                    gol.cornerCrawlers();
                 });
             });
         </script>

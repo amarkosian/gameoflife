@@ -1,9 +1,9 @@
-var GameOfLife = function(dimensions, config) {
+var GameOfLife = function(config) {
     var config = config || {};
     this.canvas = config.element;
     this.context = this.canvas.getContext('2d');
-    this.cols = dimensions[0] || 50;
-    this.rows = dimensions[1] || 48;
+    this.cols = config.width || 50;
+    this.rows = config.height || 48;
     this.state = [];
     this.speed = config.speed || 10;
     this.interval;
