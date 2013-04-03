@@ -10,13 +10,13 @@
         <script type="text/javascript">
             var config = {
                 element: document.getElementById('GOL'),
-                width: 54,
-                height: 55
+                width: 44,
+                height: 45
             };
             var gol = new GameOfLife(config);
             gol.cornerCrawlers();
             gol.start();
-            window.setInterval(function(){gol.cornerCrawlers();}, 2000);
+            window.setInterval(function(){gol.cornerCrawlers();}, 3000);
         </script>
     </body>
 </html>
