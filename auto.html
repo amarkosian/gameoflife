@@ -16,7 +16,6 @@
                 cellHeight: 15
             };
             var gol = new GameOfLife(config);
-            gol.cornerCrawlers();
             gol.start();
             window.setInterval(function(){gol.cornerCrawlers();}, 3000);
         </script>
