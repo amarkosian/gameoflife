@@ -12,8 +12,8 @@
                 element: document.getElementById('GOL'),
                 width: 60,
                 height: 61,
-                cellWidth: 15,
-                cellHeight: 15
+                cellWidth: 12,
+                cellHeight: 12
             };
             var gol = new GameOfLife(config);
             
@@ -21,7 +21,7 @@
             gol.place([20,30], gol.patterns.captivequeen);
             
             gol.updateBoard();
-            gol.speed = 200;
+            gol.speed = 100;
             gol.start();
             
             window.setInterval(function(){
