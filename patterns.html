@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <canvas id="GOL"></canvas>
+        <script type="text/javascript" src="GameOfLife.js"></script>
+        <script type="text/javascript">
+            var config = {
+                element: document.getElementById('GOL'),
+                width: 44,
+                height: 45,
+                cellWidth: 15,
+                cellHeight: 15
+            };
+            var gol = new GameOfLife(config);
+            gol.place([10,30], gol.patterns.crab);
+            gol.updateBoard();
+            gol.speed = 200;
+            gol.start();
+            
+            window.setInterval(function(){
+                //gol.place([20,20], gol.patterns.glider);
+                
+                
+                //gol.cornerCrawlers();
+            }, 3000);
+        </script>
+    </body>
+</html>

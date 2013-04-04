@@ -17,7 +17,7 @@ GameOfLife.prototype = {
     initialize: function() {
         this.canvas.width = this.cols * this.cellWidth;
         this.canvas.height = this.rows * this.cellHeight;
-                    
+        
         this.context.fillStyle = '#aaa';
         this.context.fillRect(0, 0, 1000, 1000);
         
@@ -29,7 +29,7 @@ GameOfLife.prototype = {
         }
         
         this.updateBoard();
-        //document.body.appendChild(this.canvas);
+    //document.body.appendChild(this.canvas);
     },
     fillCell: function(pos, on) {
         var x = pos[1] * this.cellWidth;
@@ -143,13 +143,13 @@ GameOfLife.prototype = {
     },
     newStatus: function(currentStatus, neighbors) {
         var liveNeighbors = 0;
-	
+        
         for (var i = 0, count = neighbors.length; i < count; i++) {
             if (neighbors[i]) {
                 liveNeighbors++;
             }
         }
-	                
+        
         if (currentStatus === true) {
             return (liveNeighbors === 2 || liveNeighbors === 3) ? true : false;
         }
@@ -202,66 +202,87 @@ GameOfLife.prototype = {
     },
     cornerCrawlers: function() {
         var direction = '';
-        var crawlers = {
-            SE: {
-                pos: [0,0],
-                pattern: [
-                [false,false,true],
-                [true, false,true],
-                [false,true, true]
-                ]
-            },
-            SW: {
-                pos: [this.cols-3, 0],
-                pattern: [
-                [true,false,false],
-                [true,false,true],
-                [true,true,false]
-                ]
-            },
-            NW: {
-                pos: [this.cols-3,this.rows-3],
-                pattern: [
-                [true,true, false],
-                [true,false,true],
-                [true,false,false]
-                ]
-            },
-            NE: {
-                pos: [0,this.rows-3],
-                pattern: [
-                [false,true,true],
-                [true,false,true],
-                [false,false,true]
-                ]
-            }
-    	
+        var crawlers = this.crawlers;
+        var pos = {
+            SE: [0,0],
+            SW: [this.cols-3, 0],
+            NW: [this.cols-3,this.rows-3],
+            NE: [0,this.rows-3]
         };
-    
+        
+        
         if (arguments.length === 0) {
-            this.place(crawlers.SE.pos, crawlers.SE.pattern);
-            this.place(crawlers.SW.pos, crawlers.SW.pattern);
-            this.place(crawlers.NW.pos, crawlers.NW.pattern);
-            this.place(crawlers.NE.pos, crawlers.NE.pattern);
+            this.place(pos.SE, crawlers.SE);
+            this.place(pos.SW, crawlers.SW);
+            this.place(pos.NW, crawlers.NW);
+            this.place(pos.NE, crawlers.NE);
         }
         else {
             for (var i = 0, count = arguments.length; i < count; i++) {
                 direction = arguments[i];
-                if (typeof crawlers[direction] !== 'undefined') {
-                    this.place(crawlers[direction].pos, crawlers[direction].pattern);
+                if (typeof pos[direction] !== 'undefined') {
+                    this.place(pos[direction], crawlers[direction]);
                 }
             }
         }
-    
+        
         this.updateBoard();
     },
-    logState: function() {
-        var y, x;
-        var lenY = this.state.length;
-        var lenX = this.state[0].length;
-        
-        for (y = 0; y < lenY; y++) {
-            console.log(this.state[y]);
-        }
+    crawlers: {
+        SE: [
+        [false,false,true],
+        [true, false,true],
+        [false,true, true]
+        ],
+        SW: [
+        [true,false,false],
+        [true,false,true],
+        [true,true,false]
+        ],
+        NW: [
+        [true,true, false],
+        [true,false,true],
+        [true,false,false]
+        ],
+        NE: [
+        [false,true,true],
+        [true,false,true],
+        [false,false,true]
+        ]
+    },
+    patterns: {
+      glider: [
+          [false, true, false],
+          [false, true, true],
+          [true, false, true]
+      ],
+      queenbee: [
+          [true, true, false, false],
+          [false, false, true, false],
+          [false, false, false, true],
+          [false, false, false, true],
+          [false, false, false, true],
+          [false, false, true, false],
+          [true, true, false, false]
+	],
+        captivequeen: [
+           [false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false], 
+           [false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false], 
+           [false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false], 
+           [true, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, true], 
+           [true, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, true], 
+           [false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false], 
+           [false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false]
+        ],
+        pentadecathlon: [
+            [true, true, true, true, true, true, true, true, true, true]
+        ],
+        crab: [
+            [false, true, false],
+            [true, true, true],
+            [true, false, true],
+            [true, true, true],
+            [false, true, false]
+        ]
     }
 };
