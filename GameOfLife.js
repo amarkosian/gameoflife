@@ -1,19 +1,19 @@
 var GameOfLife = function(config) {
     var config = config || {};
-    this.canvas = config.element;
-    this.context = this.canvas.getContext('2d');
+    
     this.cols = config.width || 50;
     this.rows = config.height || 48;
     this.state = [];
     this.speed = config.speed || 10;
+    this.cellWidth = config.cellWidth || 10;
+    this.cellHeight = config.cellHeight || 10;
+    this.cellBorder = config.cellBorder || 1;
+    this.canvas = config.element;
+    this.context = this.canvas.getContext('2d');
     this.interval;
     this.initialize();
 }
-GameOfLife.prototype = {
-    cellWidth: 10,
-    cellHeight: 10,
-    cellBorder: 1,
-                
+GameOfLife.prototype = {    
     initialize: function() {
         this.canvas.width = this.cols * this.cellWidth;
         this.canvas.height = this.rows * this.cellHeight;
