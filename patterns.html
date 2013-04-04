@@ -10,13 +10,16 @@
         <script type="text/javascript">
             var config = {
                 element: document.getElementById('GOL'),
-                width: 44,
-                height: 45,
+                width: 60,
+                height: 61,
                 cellWidth: 15,
                 cellHeight: 15
             };
             var gol = new GameOfLife(config);
-            gol.place([10,30], gol.patterns.crab);
+            
+            gol.place([10,10], gol.patterns.crab);
+            gol.place([20,30], gol.patterns.captivequeen);
+            
             gol.updateBoard();
             gol.speed = 200;
             gol.start();
