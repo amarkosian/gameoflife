@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>game of life</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <style type="text/css">
+            .container {
+                padding: 30px;
+            }
+            .speed {
+                margin: 10px 0 4px 0;
+            }
+            .speed label {
+                font-weight: bold;
+                display: inline;
+            }
+            .speed select {
+                width: 10em;
+            }
+            .crawlers div {
+                margin: 4px 0;
+            }
+            .other-patterns button {
+
+            }
+            .reset {
+                margin-top: 10px;
+            }
+            .btn-group.well label {
+                margin-right: 1em;
+            }
+        </style>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="GameOfLife.js"></script>
+        <script type="text/javascript">
+            
+            
+            
+            $(document).ready(function() {
+                function golStart() {
+                    gol.start();
+                    $('#startstop').html('Stop');
+                    $('#startstop').toggleClass('btn-success btn-danger');
+                }
+                function golStop() {
+                    gol.stop();
+                    if (typeof golInterval === 'number') {
+                        window.clearInterval(golInterval);
+                    }
+                    $('#startstop').html('Start');
+                    $('#startstop').toggleClass('btn-success btn-danger');
+                }
+                function golStep() {
+                    if ($('#startstop').html() === 'Stop') {
+                        golStop()
+                    }
+                    gol.step();
+                }
+                function golCrawlers() {
+                    $('.corners input:checked').each(function(){
+                        gol.cornerCrawlers($(this).attr('id'));
+                    });
+                }
+                function addPattern(pos, pattern) {
+                    
+                }
+                
+                var config = {
+                    width: $('#width').val(),
+                    height: $('#height').val(),
+                    element: document.getElementById('GOL_Board'),
+                    speed: $('#speed').val()
+                };
+                var golInterval;
+                
+                var gol = new GameOfLife(config);
+            
+                $('#startstop').click(function(event){
+                    if ($(this).html() === 'Start') {
+                        golStart();
+                    }
+                    else {
+                        golStop();
+                    }
+                });
+                $('#step').click(function(){
+                    golStep();
+                });
+                $('#clear').click(function(){
+                    if ($('#startstop').html() === 'Stop') {
+                        golStop()
+                    }
+                    gol.clear();
+                });
+                $('#crawlers').on('click', function(event){
+                    event.preventDefault();
+                    golCrawlers();
+                    if ($('#auto:checked').length) {
+                        golInterval = window.setInterval(function(){
+                            golCrawlers();
+                        }, 4000);
+                    }
+                });
+                
+                $('#queenbee').on('click', function(event){
+                    event.preventDefault();
+                    var pattern = gol.patterns.queenbee;
+                    var x = parseInt((gol.cols / 2) - pattern[0].length / 2, 10);
+                    var y = parseInt((gol.rows / 2) - pattern.length / 2, 10);
+                    
+                    gol.place([x,y], pattern);
+                    gol.updateBoard();
+                });
+                
+                $('#captivequeen').on('click', function(event){
+                    event.preventDefault();
+                    var pattern = gol.patterns.captivequeen;
+                    var x = parseInt((gol.cols / 2) - pattern[0].length / 2, 10);
+                    var y = parseInt((gol.rows / 2) - pattern.length / 2, 10);
+                    
+                    gol.place([x,y], pattern);
+                    gol.updateBoard();
+                });
+                
+                $('#crab').on('click', function(event){
+                    event.preventDefault();
+                    var pattern = gol.patterns.crab;
+                    var x = parseInt((gol.cols / 2) - pattern[0].length / 2, 10);
+                    var y = parseInt((gol.rows / 2) - pattern.length / 2, 10);
+                    
+                    gol.place([x,y], pattern);
+                    gol.updateBoard();
+                });
+                
+                $('#pentadecathlon').on('click', function(event){
+                    event.preventDefault();
+                    var pattern = gol.patterns.pentadecathlon;
+                    var x = parseInt((gol.cols / 2) - pattern[0].length / 2, 10);
+                    var y = parseInt((gol.rows / 2) - pattern.length / 2, 10);
+                    
+                    gol.place([x,y], pattern);
+                    gol.updateBoard();
+                });
+                
+                $('#speed').on('change', function(){
+                    gol.speed = parseInt($(this).val(), 10);
+                    gol.start();
+                });
+                $('#resize').click(function(){
+                    golStop();
+                    gol.clear();
+                    gol = new GameOfLife({
+                        width: $('#width').val(),
+                        height: $('#height').val(),
+                        element: document.getElementById('GOL_Board'),
+                        speed: $('#speed').val()
+                    });
+                    gol.cornerCrawlers();
+                });
+            });
+        </script>
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    <h2>controls</h2>
+
+                    <form class="form-inline">
+                        <div>
+                            <a id="startstop" class="btn btn-success">Start</a>
+                            <a id="step" class="btn btn-warning">Step</a>
+                        </div>
+                        <div class="speed">
+                            <label for="speed">Speed</label>
+                            <select id="speed">
+                                <option value="200">slow</option>
+                                <option value="50" selected="selected">medium</option>
+                                <option value="10">fast</option>
+                            </select>
+                        </div>
+                    </form>
+
+                    <form class="form-inline size">
+                        <fieldset>
+                            <legend>size</legend>
+                            <label for="width">width
+                                <input id="width" class="input-mini size" type="text" value="44" />
+                            </label>
+                            <label for="height">height
+                                <input id="height" class="input-mini size" type="text" value="50" />
+                            </label>
+                            <button id="resize" class="btn">Resize</button>
+                        </fieldset>
+                    </form>
+
+                    <h2>Patterns</h2>
+                    <form class="form-inline">
+                        <fieldset class="crawlers">
+                            <legend>corner crawlers</legend>
+                            <div>
+                                <button id="crawlers" class="btn btn-block btn-primary">Add</button>
+                                <label class="checkbox" for="auto"><input id="auto" type="checkbox" name="auto" /> auto (every 4 seconds)</label>
+                            </div>
+                            <div class="btn-group well well-small corners">
+                                <label class="checkbox" for="SE">
+                                    <input id="SE" type="checkbox" checked="checked"> NW
+                                </label>
+                                <label class="checkbox">
+                                    <input id="SW" type="checkbox" checked="checked"> NE
+                                </label>
+                                <label class="checkbox">
+                                    <input id="NW" type="checkbox" checked="checked"> SE
+                                </label>
+                                <label class="checkbox">
+                                    <input id="NE" type="checkbox" checked="checked"> SW
+                                </label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="other-patterns">
+                            <legend>Other</legend>
+                            <button id="queenbee" class="btn btn-block btn-inverse">Queen Bee</button>
+                            <button id="captivequeen" class="btn btn-block btn-inverse">Captive Queen</button>
+                            <button id="crab" class="btn btn-block btn-inverse">Crab</button>
+                            <button id="pentadecathlon" class="btn btn-block btn-inverse">Pentadecathlon</button>
+                        </fieldset>
+                        <fieldset class="reset">
+                            <a id="clear" class="btn">Clear</a>
+                        </fieldset>
+                    </form>
+
+                </div>
+                <div class="span9">
+                    <canvas id="GOL_Board"></canvas>
+                </div>
+            </div>
+        </div>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>
