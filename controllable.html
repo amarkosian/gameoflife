@@ -77,6 +77,15 @@
                 var golInterval;
                 
                 var gol = new GameOfLife(config);
+                
+                $('#speed option[value="10"]').attr('selected', true);
+                $('#auto').attr('checked', 'checked');
+                gol.speed = $('#speed').val();
+                gol.cornerCrawlers();
+                golStart();
+                golInterval = window.setInterval(function(){
+                	golCrawlers();
+                }, 4000);
             
                 $('#startstop').click(function(event){
                     if ($(this).html() === 'Start') {
@@ -149,7 +158,8 @@
                     gol.speed = parseInt($(this).val(), 10);
                     gol.start();
                 });
-                $('#resize').click(function(){
+                $('#resize').click(function(event){
+                	event.preventDefault();
                     golStop();
                     gol.clear();
                     gol = new GameOfLife({
@@ -189,21 +199,20 @@
                         <fieldset>
                             <legend>size</legend>
                             <label for="width">width
-                                <input id="width" class="input-mini size" type="text" value="44" />
+                                <input id="width" class="input-mini size" type="text" value="46" />
                             </label>
                             <label for="height">height
-                                <input id="height" class="input-mini size" type="text" value="50" />
+                                <input id="height" class="input-mini size" type="text" value="53" />
                             </label>
                             <button id="resize" class="btn">Resize</button>
                         </fieldset>
                     </form>
 
-                    <h2>Patterns</h2>
+                    <h2>patterns</h2>
                     <form class="form-inline">
                         <fieldset class="crawlers">
-                            <legend>corner crawlers</legend>
                             <div>
-                                <button id="crawlers" class="btn btn-block btn-primary">Add</button>
+                                <button id="crawlers" class="btn btn-block btn-primary">corner crawlers</button>
                                 <label class="checkbox" for="auto"><input id="auto" type="checkbox" name="auto" /> auto (every 4 seconds)</label>
                             </div>
                             <div class="btn-group well well-small corners">
@@ -222,7 +231,6 @@
                             </div>
                         </fieldset>
                         <fieldset class="other-patterns">
-                            <legend>Other</legend>
                             <button id="queenbee" class="btn btn-block btn-inverse">Queen Bee</button>
                             <button id="captivequeen" class="btn btn-block btn-inverse">Captive Queen</button>
                             <button id="crab" class="btn btn-block btn-inverse">Crab</button>
