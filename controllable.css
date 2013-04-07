@@ -14,6 +14,9 @@
 .crawlers div {
     margin: 4px 0;
 }
+.corners {
+	width: 100%;
+}
 .other-patterns button {
 
 }

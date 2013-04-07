@@ -1,50 +1,55 @@
+function golStart() {
+    gol.start();
+    $('#startstop').html('Stop');
+    $('#startstop').toggleClass('btn-success btn-danger');
+}
+function golStop() {
+    gol.stop();
+    if (typeof golInterval === 'number') {
+        window.clearInterval(golInterval);
+    }
+    $('#startstop').html('Start');
+    $('#startstop').toggleClass('btn-success btn-danger');
+}
+function golStep() {
+    if ($('#startstop').html() === 'Stop') {
+        golStop();
+    }
+    gol.step();
+}
+function golCrawlers() {
+	if (typeof golInterval === 'number') {
+		window.clearInterval(golInterval);
+	}
+	$('.corners input:checked').each(function(){
+        gol.cornerCrawlers($(this).attr('id'));
+    });
+	if ($('#auto').is(':checked')) {
+		golInterval = window.setInterval(function(){
+			$('.corners input:checked').each(function(){
+	        	gol.cornerCrawlers($(this).attr('id'));
+	    	});
+		}, 4000);
+	}
+}
+
+var config;
+var golInterval;
+var gol;
+	
 $(document).ready(function() {
-    function golStart() {
-        gol.start();
-        $('#startstop').html('Stop');
-        $('#startstop').toggleClass('btn-success btn-danger');
-    }
-    function golStop() {
-        gol.stop();
-        if (typeof golInterval === 'number') {
-            window.clearInterval(golInterval);
-        }
-        $('#startstop').html('Start');
-        $('#startstop').toggleClass('btn-success btn-danger');
-    }
-    function golStep() {
-        if ($('#startstop').html() === 'Stop') {
-            golStop()
-        }
-        gol.step();
-    }
-    function golCrawlers() {
-        $('.corners input:checked').each(function(){
-            gol.cornerCrawlers($(this).attr('id'));
-        });
-    }
-    function addPattern(pos, pattern) {
-        
-    }
-    
-    var config = {
-        width: $('#width').val(),
-        height: $('#height').val(),
-        element: document.getElementById('GOL_Board'),
-        speed: $('#speed').val()
-    };
-    var golInterval;
-    
-    var gol = new GameOfLife(config);
-    
-    $('#auto').attr('checked', 'checked');
-    $('#speed').val(50);
-    gol.speed = $('#speed').val();
-    gol.cornerCrawlers();
-    golStart();
-    golInterval = window.setInterval(function(){
-    	golCrawlers();
-    }, 4000);
+	config = {
+	    width: $('#width').val(),
+	    height: $('#height').val(),
+	    element: document.getElementById('GOL_Board'),
+	    speed: $('#speed').val(),
+	    cellWidth: 12,
+	    cellHeight: 12
+	};
+	gol = new GameOfLife(config);
+	
+	$('#auto').click();
+	golCrawlers();
 
     $('#startstop').click(function(event){
         if ($(this).html() === 'Start') {
@@ -66,11 +71,6 @@ $(document).ready(function() {
     $('#crawlers').on('click', function(event){
         event.preventDefault();
         golCrawlers();
-        if ($('#auto:checked').length) {
-            golInterval = window.setInterval(function(){
-                golCrawlers();
-            }, 4000);
-        }
     });
     
     $('#queenbee').on('click', function(event){
@@ -129,4 +129,6 @@ $(document).ready(function() {
         });
         gol.cornerCrawlers();
     });
+    
+    $('#startstop').click();
 });
