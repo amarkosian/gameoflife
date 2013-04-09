@@ -117,19 +117,20 @@ GameOfLife.prototype = {
     },
     step: function() {
         var pos, currentStatus, neighbors;
-        var newState = [];
+        var self = this;
+        var newState = self.state.map(function(row, y){
+            return row.map(function(cell, x){
+                pos = [x,y];
+                currentStatus = self.state[y][x];
+                neighbors = self.neighbors(pos);
+                return self.newStatus(currentStatus, neighbors);
+            });
+            
+        });
         
-        for (var i = 0; i < this.rows; i++) {
-            newState[i] = [];
-            for (var j = 0; j < this.cols; j++) {
-                pos = [j,i];
-                currentStatus = this.state[i][j];
-                neighbors = this.neighbors(pos);
-                newState[i][j] = this.newStatus(currentStatus, neighbors);
-            }
-        }
         this.state = newState;
         this.updateBoard();
+        
     },
     copyState: function() {
         var newState = [];
