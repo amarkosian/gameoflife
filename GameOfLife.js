@@ -132,16 +132,6 @@ GameOfLife.prototype = {
         this.updateBoard();
         
     },
-    copyState: function() {
-        var newState = [];
-        for (var i = 0, count = this.state.length; i < count; i++) {
-            newState[i] = [];
-            for (var j = 0, len = this.state[i].length; j < len; j++) {
-                newState[i][j] = this.state[i][j];
-            }
-        }
-        return newState;
-    },
     newStatus: function(currentStatus, neighbors) {
         var liveNeighbors = 0;
         
