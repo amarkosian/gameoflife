@@ -29,7 +29,6 @@ GameOfLife.prototype = {
         }
         
         this.updateBoard();
-    //document.body.appendChild(this.canvas);
     },
     fillCell: function(pos, on) {
         var x = pos[1] * this.cellWidth;
@@ -130,7 +129,6 @@ GameOfLife.prototype = {
         
         this.state = newState;
         this.updateBoard();
-        
     },
     newStatus: function(currentStatus, neighbors) {
         var liveNeighbors = 0;
@@ -149,7 +147,12 @@ GameOfLife.prototype = {
         }
     },
     place: function(pos, pattern) {
-        var x = pos[0], y = pos[1], height = pattern.length, row, value;
+        var x = pos[0], 
+        	y = pos[1], 
+        	height = pattern.length, 
+        	row, 
+        	value;
+        
         for (var i = y, len = height + y; i < len; i++) {
             row = pattern[i-y];
             for (var j = x, len2 = row.length + x; j < len2; j++) {
@@ -200,7 +203,6 @@ GameOfLife.prototype = {
             NW: [this.cols-3,this.rows-3],
             NE: [0,this.rows-3]
         };
-        
         
         if (arguments.length === 0) {
             this.place(pos.SE, crawlers.SE);
