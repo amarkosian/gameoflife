@@ -7,7 +7,7 @@ var GameOfLife = function(config) {
     this.speed = config.speed || 10;
     this.cellWidth = config.cellWidth || 10;
     this.cellHeight = config.cellHeight || 10;
-    this.cellBorder = config.cellBorder || 1;
+    this.cellBorder = typeof config.cellBorder !== 'undefined' ? config.cellBorder : 1;
     this.canvas = config.element;
     this.context = this.canvas.getContext('2d');
     this.interval;
@@ -134,16 +134,16 @@ GameOfLife.prototype = {
         var liveNeighbors = 0;
         
         for (var i = 0, count = neighbors.length; i < count; i++) {
-            if (neighbors[i]) {
+            if (neighbors[i] === 1) {
                 liveNeighbors++;
             }
         }
         
-        if (currentStatus === true) {
-            return (liveNeighbors === 2 || liveNeighbors === 3) ? true : false;
+        if (currentStatus === 1) {
+            return (liveNeighbors === 2 || liveNeighbors === 3) ? 1 : 0;
         }
         else {
-            return liveNeighbors === 3 ? true : false;
+            return liveNeighbors === 3 ? 1 : 0;
         }
     },
     place: function(pos, pattern) {
@@ -194,12 +194,20 @@ GameOfLife.prototype = {
         this.initialize();
         this.updateBoard();
     },
+    writeString: function(str, pos) {
+    	var x = pos[0];
+    	var y = pos[1] + 30;
+    	this.context.fillStyle = '#f00';
+		this.context.font = 'bold 30px sans-serif';
+		this.context.textBaseline = 'bottom';
+		this.context.fillText(str, x, y);
+    },
     cornerCrawlers: function() {
         var direction = '';
         var crawlers = this.crawlers;
         var pos = {
             SE: [0,0],
-            SW: [this.cols-3, 0],
+            SW: [this.cols-3,0],
             NW: [this.cols-3,this.rows-3],
             NE: [0,this.rows-3]
         };
@@ -223,59 +231,59 @@ GameOfLife.prototype = {
     },
     crawlers: {
         SE: [
-        [false,false,true],
-        [true, false,true],
-        [false,true, true]
+        [0,0,1],
+        [1,0,1],
+        [0,1,1]
         ],
         SW: [
-        [true,false,false],
-        [true,false,true],
-        [true,true,false]
+        [1,0,0],
+        [1,0,1],
+        [1,1,0]
         ],
         NW: [
-        [true,true, false],
-        [true,false,true],
-        [true,false,false]
+        [1,1,0],
+        [1,0,1],
+        [1,0,0]
         ],
         NE: [
-        [false,true,true],
-        [true,false,true],
-        [false,false,true]
+        [0,1,1],
+        [1,0,1],
+        [0,0,1]
         ]
     },
     patterns: {
       glider: [
-          [false, true, false],
-          [false, true, true],
-          [true, false, true]
+          [0,1,0],
+          [0,1,1],
+          [1,0,1]
       ],
       queenbee: [
-          [true, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-          [false, false, false, true],
-          [false, false, false, true],
-          [false, false, true, false],
-          [true, true, false, false]
+          [1,1,0,0],
+          [0,0,1,0],
+          [0,0,0,1],
+          [0,0,0,1],
+          [0,0,0,1],
+          [0,0,1,0],
+          [1,1,0,0]
 	],
         captivequeen: [
-           [false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false], 
-           [false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false], 
-           [false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false], 
-           [true, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, true], 
-           [true, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, true], 
-           [false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false], 
-           [false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false]
+           [0,0,0,0,0,0,0,0,1,1], 
+           [0,0,0,0,0,0,0,0,0,0,1], 
+           [0,0,0,0,0,0,0,0,0,0,0,1], 
+           [1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1], 
+           [1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1], 
+           [0,0,0,0,0,0,0,0,0,0,1], 
+           [0,0,0,0,0,0,0,0,1,1]
         ],
         pentadecathlon: [
-            [true, true, true, true, true, true, true, true, true, true]
+            [1,1,1,1,1,1,1,1,1,1]
         ],
         crab: [
-            [false, true, false],
-            [true, true, true],
-            [true, false, true],
-            [true, true, true],
-            [false, true, false]
+            [0,1,0],
+            [1,1,1],
+            [1,0,1],
+            [1,1,1],
+            [0,1,0]
         ]
     }
 };
