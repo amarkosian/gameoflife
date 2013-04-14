@@ -125,7 +125,9 @@ $(document).ready(function() {
             width: $('#width').val(),
             height: $('#height').val(),
             element: document.getElementById('GOL_Board'),
-            speed: $('#speed').val()
+            speed: $('#speed').val(),
+            cellWidth: 15,
+	    cellHeight: 15
         });
         gol.cornerCrawlers();
     });
