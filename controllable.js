@@ -113,6 +113,18 @@ $(document).ready(function() {
         gol.updateBoard();
     });
     
+    $('#toad').on('click', function(event){
+        event.preventDefault();
+        var pattern = gol.patterns.toad;
+        var x = parseInt((gol.cols / 2) - pattern[0].length / 2, 10);
+        var y = parseInt((gol.rows / 2) - pattern.length / 2, 10);
+        
+        gol.place([x,y], pattern);
+        gol.updateBoard();
+    });
+
+
+
     $('#speed').on('change', function(){
         gol.speed = parseInt($(this).val(), 10);
         gol.start();
