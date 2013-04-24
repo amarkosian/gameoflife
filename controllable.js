@@ -43,8 +43,8 @@ $(document).ready(function() {
 	    height: $('#height').val(),
 	    element: document.getElementById('GOL_Board'),
 	    speed: $('#speed').val(),
-	    cellWidth: 15,
-	    cellHeight: 15
+	    cellWidth: 12,
+	    cellHeight: 12
 	};
 	gol = new GameOfLife(config);
 	
