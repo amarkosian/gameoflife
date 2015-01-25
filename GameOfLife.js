@@ -12,14 +12,15 @@ var GameOfLife = function(config) {
     this.context = this.canvas.getContext('2d');
     this.interval;
     this.initialize();
-}
+};
+
 GameOfLife.prototype = {    
     initialize: function() {
         this.canvas.width = this.cols * this.cellWidth;
         this.canvas.height = this.rows * this.cellHeight;
         
         this.context.fillStyle = '#aaa';
-        this.context.fillRect(0, 0, 1000, 1000);
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
         for (var i = 0; i < this.rows; i++) {
             this.state[i] = [];
