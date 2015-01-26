@@ -43,7 +43,9 @@ GameOfLife.prototype = {
         this.context.fillRect(x + this.cellBorder, y + this.cellBorder, this.cellWidth-this.cellBorder*2, this.cellHeight-this.cellBorder*2);
     },
     neighbors: function(pos) {
-        var x = pos[0], y = pos[1], neighbors = [];
+        var x = pos[0];
+        var y = pos[1];
+        var neighbors = [];
         var firstRow = y === 0;
         var lastRow = y === this.rows - 1;
         var firstCol = x === 0;
