@@ -1,0 +1,28 @@
+.container {
+    padding: 30px;
+}
+.speed {
+    margin: 10px 0 4px 0;
+}
+.speed label {
+    font-weight: bold;
+    display: inline;
+}
+.speed select {
+    width: 10em;
+}
+.crawlers div {
+    margin: 4px 0;
+}
+.corners {
+	width: 100%;
+}
+.other-patterns button {
+
+}
+.reset {
+    margin-top: 10px;
+}
+.btn-group.well label {
+    margin-right: 1em;
+}
