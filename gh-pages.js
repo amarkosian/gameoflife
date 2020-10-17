@@ -47,6 +47,8 @@ $(document).ready(function() {
 	    cellHeight: 12
 	};
 	gol = new GameOfLife(config);
+
+    gol.start();
 	
 	$('#auto').click();
 	golCrawlers();
