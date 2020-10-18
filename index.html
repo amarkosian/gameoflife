@@ -16,10 +16,10 @@
                 <form class="form-inline">
                     <fieldset>
                         <button id="startstop" class="button button-start-off">Stop</button>
-                        <button id="step" class="button button-action">Step</button>
+                        <button id="step" class="button button-step">Step</button>
                     </fieldset>
                     <fieldset class="reset">
-                        <button id="clear" class="button button-action">Clear</button>
+                        <button id="clear" class="button button-clear">Clear</button>
                     </fieldset>
                     <fieldset class="speed">
                         <legend for="speed">Speed</legend>
@@ -29,18 +29,19 @@
                             <option value="10" selected="selected">fast</option>
                         </select>
                     </fieldset>
-                </form>
-
-                <form class="size">
                     <fieldset>
-                        <legend>size</legend>
-                        <label for="width">width
-                            <input id="width" class="input-mini size" type="text" value="56" />
-                        </label>
-                        <label for="height">height
-                            <input id="height" class="input-mini size" type="text" value="57" />
-                        </label>
-                        <button id="resize" class="button button-action">Resize</button>
+                        <legend>Size</legend>
+                        <div>
+                            <label for="width">width
+                                <input id="width" class="input-mini size" type="text" value="56" />
+                            </label>
+                        </div>
+                        <div>
+                            <label for="height">height
+                                <input id="height" class="input-mini size" type="text" value="57" />
+                            </label>
+                            <button id="resize" class="button button-action">Resize</button>
+                        </div>
                     </fieldset>
                 </form>
 
