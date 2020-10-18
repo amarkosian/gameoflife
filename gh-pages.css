@@ -1,6 +1,114 @@
-.container {
-    padding: 30px;
+body {
+	font-family: arial;
 }
+
+
+.wrapper {
+	display: grid;
+  	grid-gap: 20px;
+  	grid-template-columns: 25% 75%;
+}
+.controls {
+	grid-column: 1;
+  	grid-row: 1;
+}
+.controls button {
+	margin: 4px 0 6px 0;
+	width: 100%;
+}
+
+.button {
+	box-shadow:inset 0px 1px 0px 0px #54a3f7;
+	border-radius:3px;
+	border:1px solid #124d77;
+	display:inline-block;
+	cursor:pointer;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #154682;
+}
+.button:active {
+	position:relative;
+	top:1px;
+}
+
+.button-pattern {
+	background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+	background-color:#007dc1;
+	color:#ffffff;
+}
+
+.button-pattern:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+}
+
+.button-action {
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	background-color:#768d87;
+	color:#ffffff;
+}
+.button-action:hover {
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	background-color:#6c7c7c;
+}
+
+.button-start-on {
+	box-shadow:inset 0px 1px 0px 0px #9acc85;
+	background:linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
+	background-color:#74ad5a;
+	border:1px solid #3b6e22;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:6px 12px;
+	text-decoration:none;
+}
+.button-start-on:active {
+	background:linear-gradient(to bottom, #68a54b 5%, #74ad5a 100%);
+	background-color:#68a54b;
+}
+.button-start-on:hover {
+	position:relative;
+	top:1px;
+}
+
+.button-start-off {
+	box-shadow:inset 0px 1px 0px 0px #cf866c;
+	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+	background-color:#d0451b;
+	border-radius:3px;
+	border:1px solid #942911;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #854629;
+}
+.button-start-off:hover {
+	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+	background-color:#bc3315;
+}
+.button-start-off:active {
+	position:relative;
+	top:1px;
+}
+
+
+.game {
+	grid-column: 2;
+  	grid-row: 1;
+}
+
+
 .speed {
     margin: 10px 0 4px 0;
 }

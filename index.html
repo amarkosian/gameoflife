@@ -3,96 +3,91 @@
     <head>
         <title>game of life</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="gs-pages.css" rel="stylesheet">
+        <link href="gh-pages.css" rel="stylesheet">
         
-
-        <script src="jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="GameOfLife.js"></script>
         <script type="text/javascript" src="gh-pages.js"></script>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="span3">
-                    <h2>controls</h2>
+        <div class="wrapper">
+            <div class="controls">
+                <h2>controls</h2>
 
-                    <form class="form-inline">
+                <form class="form-inline">
+                    <div>
+                        
+                        <button id="startstop" class="button button-start-off">Stop</button>
+                        <button id="step" class="button button-action">Step</button>
+
+                    </div>
+                    <fieldset class="speed">
+                        <legend for="speed">Speed</legend>
+                        <select id="speed">
+                            <option value="200">slow</option>
+                            <option value="50">medium</option>
+                            <option value="10" selected="selected">fast</option>
+                        </select>
+                    </fieldset>
+                </form>
+
+                <form class="size">
+                    <fieldset>
+                        <legend>size</legend>
+                        <label for="width">width
+                            <input id="width" class="input-mini size" type="text" value="56" />
+                        </label>
+                        <label for="height">height
+                            <input id="height" class="input-mini size" type="text" value="57" />
+                        </label>
+                        <button id="resize" class="button button-action">Resize</button>
+                    </fieldset>
+                </form>
+
+                <h2>patterns</h2>
+                <form id="patterns" class="form-inline">
+                    <fieldset class="crawlers">
                         <div>
-                            <a id="startstop" class="btn btn-success">Start</a>
-                            <a id="step" class="btn btn-warning">Step</a>
-                        </div>
-                        <div class="speed">
-                            <label for="speed">Speed</label>
-                            <select id="speed">
-                                <option value="200">slow</option>
-                                <option value="50">medium</option>
-                                <option value="10" selected="selected">fast</option>
-                            </select>
-                        </div>
-                    </form>
-
-                    <form class="form-inline size">
-                        <fieldset>
-                            <legend>size</legend>
-                            <label for="width">width
-                                <input id="width" class="input-mini size" type="text" value="56" />
+                            <button id="crawlers" class="button button-pattern">corner crawlers</button>
+                            <label class="checkbox" for="auto">
+                                <input id="auto" type="checkbox" name="auto" checked /> auto (every 4 seconds)
                             </label>
-                            <label for="height">height
-                                <input id="height" class="input-mini size" type="text" value="57" />
-                            </label>
-                            <button id="resize" class="btn">Resize</button>
-                        </fieldset>
-                    </form>
+                        </div>
+                        <div class="btn-group well well-small corners">
+                        	<div>
+                        		<label class="checkbox" for="SE">
+                                    <input id="SE" type="checkbox" checked="checked"> NW
+                                </label>
+                                <label class="checkbox">
+                                    <input id="SW" type="checkbox" checked="checked"> NE
+                                </label>
+                        	</div>
+                        	<div>
+                        		<label class="checkbox">
+                                    <input id="NE" type="checkbox" checked="checked"> SW
+                                </label>
+                                <label class="checkbox">
+                                    <input id="NW" type="checkbox" checked="checked"> SE
+                                </label>
+                        	</div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="other-patterns">
+                        <button id="queenbee" class="button button-pattern">Queen Bee</button>
+                        <button id="captivequeen" class="button button-pattern">Captive Queen</button>
+                        <button id="crab" class="button button-pattern">Crab</button>
+                        <button id="pentadecathlon" class="button button-pattern">Pentadecathlon</button>
+                        <button id="toad" class="button button-pattern">Toad</button>
+                    </fieldset>
+                    <fieldset class="reset">
+                        <button id="clear" class="button button-action">Clear</button>
+                    </fieldset>
+                </form>
 
-                    <h2>patterns</h2>
-                    <form class="form-inline">
-                        <fieldset class="crawlers">
-                            <div>
-                                <button id="crawlers" class="btn btn-block btn-primary">corner crawlers</button>
-                                <label class="checkbox" for="auto"><input id="auto" type="checkbox" name="auto" /> auto (every 4 seconds)</label>
-                            </div>
-                            <div class="btn-group well well-small corners">
-                            	<div>
-                            		<label class="checkbox" for="SE">
-	                                    <input id="SE" type="checkbox" checked="checked"> NW
-	                                </label>
-	                                <label class="checkbox">
-	                                    <input id="SW" type="checkbox" checked="checked"> NE
-	                                </label>
-                            	</div>
-	                        	<div>
-	                        		<label class="checkbox">
-	                                    <input id="NE" type="checkbox" checked="checked"> SW
-	                                </label>
-	                                <label class="checkbox">
-	                                    <input id="NW" type="checkbox" checked="checked"> SE
-	                                </label>
-	                        	</div>
-                            </div>
-                        </fieldset>
-                        <fieldset class="other-patterns">
-                            <button id="queenbee" class="btn btn-block btn-inverse">Queen Bee</button>
-                            <button id="captivequeen" class="btn btn-block btn-inverse">Captive Queen</button>
-                            <button id="crab" class="btn btn-block btn-inverse">Crab</button>
-                            <button id="pentadecathlon" class="btn btn-block btn-inverse">Pentadecathlon</button>
-                            <button id="toad" class="btn btn-block btn-inverse">Toad</button>
-                        </fieldset>
-                        <fieldset class="reset">
-                            <a id="clear" class="btn">Clear</a>
-                        </fieldset>
-                    </form>
-
-                </div>
-                <div class="span9">
-                    <canvas id="GOL_Board"></canvas>
-                </div>
             </div>
-            <div class="row">
-                <div class="span12"><a href="https://github.com/amarkosian/gameoflife">View this project on Github</a></div>
+            <div class="game">
+                <canvas id="GOL_Board"></canvas>
             </div>
+        
         </div>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
