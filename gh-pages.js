@@ -4,7 +4,6 @@ function golStart() {
     button.innerHTML = "Stop";
     button.classList.add('button-start-off');
     button.classList.remove('button-start-on');
-    //$('#startstop').toggleClass('btn-success btn-danger');
 }
 function golStop() {
     let button = document.getElementById('startstop');
@@ -15,10 +14,9 @@ function golStop() {
     button.innerHTML = "Start";
     button.classList.add('button-start-on');
     button.classList.remove('button-start-off');
-    //$('#startstop').toggleClass('btn-success btn-danger');
 }
 function golStep() {
-    if ($('#startstop').html() === 'Stop') {
+    if (document.getElementById('startstop').innerHTML === 'Stop') {
         golStop();
     }
     gol.step();
@@ -66,6 +64,10 @@ window.onload = function() {
         else {
             golStop();
         }
+    }, false);
+
+    document.getElementById('step').addEventListener("click", function(event) {
+        golStep();
     }, false);
 
     document.getElementById('speed').addEventListener('change', function(event) {
