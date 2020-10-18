@@ -50,12 +50,13 @@ var golInterval;
 var gol;
 
 window.onload = function() {
-    let patternsForm = document.getElementById('patterns');
+    let forms = document.getElementsByTagName('form');
 
-    patternsForm.addEventListener("submit", function(event) {
-         event.preventDefault();
-    }, false);
-
+    Array.from(forms).forEach(function(form){
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+        }, false);
+    });
 
     document.getElementById('startstop').addEventListener("click", function(event) {
         event.preventDefault();
